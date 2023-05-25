@@ -1,0 +1,26 @@
+import { parseVoteResults } from "../csvParser/voteResultsParser";
+import { VoteResult } from "../entities/VoteResults";
+
+export class VoteResultsRepository {
+  private voteResults: VoteResult[];
+
+  constructor() {
+    this.voteResults = [];
+  }
+
+  async loadVoteResults(filePath: string): Promise<void> {
+    try {
+      this.voteResults = await parseVoteResults(filePath);
+    } catch (error) {
+      throw new Error('error loading vote results: ' + error);
+    }
+  }
+
+  getAllVoteResults(): VoteResult[] {
+    return this.voteResults;
+  }
+
+  getVoteResultsById(id: number): VoteResult | undefined {
+    return this.voteResults.find((voteResult) => voteResult.id === id);
+  }
+}
