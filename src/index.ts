@@ -135,6 +135,7 @@ function legislatorsSupportOpposeCount(
 }
 
 async function main() {
+  const start = new Date()
   const voteRepository = new VoteRepository();
   const billRepository = new BillRepository();
   const legislatorRepository = new LegislatorRepository();
@@ -165,6 +166,9 @@ async function main() {
   } catch (error) {
     console.error("error loading csv files", error);
   }
+  const end = new Date()
+  const time = end.getMilliseconds() - start.getMilliseconds()
+  console.log(time)
 }
 
 main();
