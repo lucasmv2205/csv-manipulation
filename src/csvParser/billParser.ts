@@ -11,7 +11,7 @@ export function parseBills(filePath: string): Promise<Bill[]> {
       .on("data", (data) => {
         const id = Number(data.id);
         const title = data.title;
-        const sponsor_id = Number(data.sponsor_id) ? Number(data.sponsor_id) :  "Unknown";
+        const sponsor_id = Number(data.sponsor_id);
         const bill = new Bill(id, title, sponsor_id);
         bills.push(bill);
       })

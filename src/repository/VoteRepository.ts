@@ -23,4 +23,8 @@ export class VoteRepository {
   getVoteById(id: number): Vote | null {
     return this.votes.find((vote) => vote.id === id) || null;
   }
+
+  getVoteByBillId(billId: number): Vote | null {
+    return this.votes.find((vote) => vote.bill_id === billId) || null;
+  }
 }
