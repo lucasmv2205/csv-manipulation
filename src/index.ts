@@ -1,9 +1,9 @@
+import fs from "node:fs";
 import { VoteRepository } from "./repository/VoteRepository";
 import { BillRepository } from "./repository/BillRepository";
 import { LegislatorRepository } from "./repository/LegislatorRepository";
 import { VoteResultsRepository } from "./repository/VoteResultsRepository";
 import { VoteResult } from "./entities/VoteResults";
-import fs from "node:fs";
 import { Bill } from "./entities/Bill";
 import { Legislator } from "./entities/Legislator";
 
@@ -135,7 +135,7 @@ function legislatorsSupportOpposeCount(
 }
 
 async function main() {
-  const start = new Date()
+  const start = new Date();
   const voteRepository = new VoteRepository();
   const billRepository = new BillRepository();
   const legislatorRepository = new LegislatorRepository();
