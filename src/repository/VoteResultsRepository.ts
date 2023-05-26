@@ -12,12 +12,16 @@ export class VoteResultsRepository {
     try {
       this.voteResults = await parseVoteResults(filePath);
     } catch (error) {
-      throw new Error('error loading vote results: ' + error);
+      throw new Error("error loading vote results: " + error);
     }
   }
 
   getAllVoteResults(): VoteResult[] {
     return this.voteResults;
+  }
+
+  getItemsWithLegislatorId(legislatorId: number) {
+    return this.voteResults.filter((obj) => obj.legislator_id === legislatorId);
   }
 
   getVoteResultsById(id: number): VoteResult | undefined {

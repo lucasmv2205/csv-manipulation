@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import csvParser from 'csv-parser';
 import { Vote } from '../entities/Vote';
 

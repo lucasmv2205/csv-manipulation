@@ -20,7 +20,7 @@ export class VoteRepository {
     return this.votes;
   }
 
-  getVoteById(id: number): Vote | undefined {
-    return this.votes.find((vote) => vote.id === id);
+  getVoteById(id: number): Vote | null {
+    return this.votes.find((vote) => vote.id === id) || null;
   }
 }
