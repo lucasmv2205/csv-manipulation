@@ -4,8 +4,8 @@ import { Vote } from "../entities/Vote";
 export class VoteRepository {
   private votes: Vote[];
 
-  constructor() {
-    this.votes = [];
+  constructor(votes?: Vote[]) {
+    this.votes = votes || [];
   }
 
   async loadVotes(filePath: string): Promise<void> {

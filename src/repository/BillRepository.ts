@@ -6,8 +6,8 @@ import { VoteResult } from "../entities/VoteResults";
 export class BillRepository {
   private bills: Bill[];
 
-  constructor() {
-    this.bills = [];
+  constructor(bills?: Bill[]) {
+    this.bills = bills || [];
   }
 
   async loadBills(filePath: string): Promise<void> {
