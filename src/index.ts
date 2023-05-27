@@ -89,12 +89,13 @@ async function main() {
       voteResultsRepository
     );
     createBillsSupportOpposeCountCsv("src/files/results/bills.csv", result_2);
+    console.log('result files created on /src/files/results');
   } catch (error) {
     console.error("error loading csv files", error);
   }
   const end = new Date();
   const time = end.getMilliseconds() - start.getMilliseconds();
-  console.log(time);
+  console.log(`execution time: ${time} ms`);
 }
 
 main();
