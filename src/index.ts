@@ -76,7 +76,6 @@ async function main() {
 
     const result_1: Result_1_Format[] =
       legislatorRepository.calculateSupportOpposeCounts(
-        legislatorRepository,
         voteResultsRepository
       );
     createLegislatorsSupportOpposeCountCsv(
@@ -86,7 +85,6 @@ async function main() {
 
     const result_2: Result_2_Format[] = billRepository.calculateSupportOpposeCounts(
       voteRepository,
-      billRepository,
       legislatorRepository,
       voteResultsRepository
     );

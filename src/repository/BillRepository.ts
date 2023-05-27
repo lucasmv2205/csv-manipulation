@@ -28,13 +28,12 @@ export class BillRepository {
 
   calculateSupportOpposeCounts(
     voteRepository: { getVoteByBillId: (arg0: number) => any },
-    billRepository: { getAllBills: () => any },
     legislatorRepository: {
       getLegislatorById: (arg0: number) => Legislator | undefined;
     },
     voteResultsRepository: { getAllVoteResultsByVoteId: (arg0: any) => any }
   ) {
-    const allBills = billRepository.getAllBills();
+    const allBills = this.getAllBills();
     return allBills.map((bill: Bill) => {
       let supporter_count = 0;
       let opposer_count = 0;

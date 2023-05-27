@@ -5,8 +5,8 @@ import { VoteResult } from "../entities/VoteResults";
 export class LegislatorRepository {
   private legislators: Legislator[];
 
-  constructor() {
-    this.legislators = [];
+  constructor(legislators?: Legislator[]) {
+    this.legislators = legislators || [];
   }
 
   async loadLegislators(filePath: string): Promise<void> {
@@ -39,17 +39,16 @@ export class LegislatorRepository {
   }
 
   calculateSupportOpposeCounts(
-    legislatorRepository: any,
     voteResultsRepository: any
   ) {
-    const legislators = legislatorRepository.getAllLegislators();
+    const legislators = this.getAllLegislators();
     const votes = voteResultsRepository.getAllVoteResults();
 
     const legislatorSupporOpposeCount = legislators.map(
       (legislator: Legislator) => {
         const { id, name } = legislator;
         const { num_supported_bills, num_opposed_bills } =
-          legislatorRepository.filterVotesByLegislatorId(id, votes);
+          this.filterVotesByLegislatorId(id, votes);
 
         return {
           id,
