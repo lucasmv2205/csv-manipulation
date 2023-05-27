@@ -9,13 +9,14 @@ describe("BillRepository - calculateSupportOpposeCounts", () => {
       { id: 1, name: "Legislator 1" },
       { id: 2, name: "Legislator 2" },
       { id: 3, name: "Legislator 3" },
+      { id: 4, name: "Legislator 4" },
     ];
 
     const vote_results = [
       { id: 1, legislator_id: 1, vote_id: 1, vote_type: 1 },
-      { id: 2, legislator_id: 1, vote_id: 1, vote_type: 2 },
-      { id: 3, legislator_id: 1, vote_id: 2, vote_type: 1 },
-      { id: 4, legislator_id: 2, vote_id: 2, vote_type: 2 },
+      { id: 2, legislator_id: 2, vote_id: 1, vote_type: 2 },
+      { id: 3, legislator_id: 3, vote_id: 2, vote_type: 1 },
+      { id: 4, legislator_id: 4, vote_id: 2, vote_type: 2 },
     ];
 
     const votes = [
