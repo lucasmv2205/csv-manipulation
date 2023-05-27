@@ -20,10 +20,6 @@ export class VoteResultsRepository {
     return this.voteResults;
   }
 
-  getItemsWithLegislatorId(legislatorId: number) {
-    return this.voteResults.filter((obj) => obj.legislator_id === legislatorId);
-  }
-
   getAllVoteResultsByVoteId(voteId: number) {
     return this.voteResults.filter((obj) => obj.vote_id === voteId);
   }

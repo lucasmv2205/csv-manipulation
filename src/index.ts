@@ -22,6 +22,7 @@ interface Result_2_Format {
   primary_sponsor: string | number;
 }
 
+// csvCreate
 function createLegislatorsSupportOpposeCountCsv(
   fileName: string,
   data: Result_1_Format[]
@@ -36,7 +37,7 @@ function createLegislatorsSupportOpposeCountCsv(
 
   fs.writeFileSync(fileName, csvContent, "utf-8");
 }
-
+// csvCreate
 function createBillsSupportOpposeCountCsv(
   fileName: string,
   data: Result_2_Format[]
@@ -44,94 +45,18 @@ function createBillsSupportOpposeCountCsv(
   const header = "id,title,supporter_count,opposer_count,primary_sponsor\n";
   let csvContent = header;
 
-  for (const { id, title, supporter_count, opposer_count, primary_sponsor } of data) {
+  for (const {
+    id,
+    title,
+    supporter_count,
+    opposer_count,
+    primary_sponsor,
+  } of data) {
     const row = `${id},"${title}",${supporter_count},${opposer_count},"${primary_sponsor}"\n`;
     csvContent += row;
   }
 
   fs.writeFileSync(fileName, csvContent, "utf-8");
-}
-
-function billSupporterOpposerCount(
-  voteRepository: { getVoteByBillId: (arg0: number) => any },
-  billRepository: { getAllBills: () => any },
-  legislatorRepository: {
-    getLegislatorById: (arg0: number) => Legislator | undefined;
-  },
-  voteResultsRepository: { getAllVoteResultsByVoteId: (arg0: any) => any }
-): Result_2_Format[] {
-  const allBills = billRepository.getAllBills();
-  return allBills.map((bill: Bill) => {
-    let supporter_count = 0;
-    let opposer_count = 0;
-    const primary_sponsor =
-      legislatorRepository.getLegislatorById(bill.sponsor_id)?.name ||
-      "Unknown";
-    const vote = voteRepository.getVoteByBillId(bill.id);
-    const voteResults = vote
-      ? voteResultsRepository.getAllVoteResultsByVoteId(vote.id)
-      : [];
-
-    voteResults.map((voteResult: VoteResult) => {
-      if (voteResult.vote_type === 1) {
-        supporter_count += 1;
-      } else {
-        opposer_count += 1;
-      }
-    });
-
-    const obj = {
-      id: bill.id,
-      title: bill.title,
-      primary_sponsor,
-      supporter_count,
-      opposer_count,
-    };
-    return obj;
-  });
-}
-
-function legislatorsSupportOpposeCount(
-  legislatorRepository: { getLegislatorById: (arg: number) => any },
-  voteResultsRepository: {
-    getAllVoteResults: () => any;
-    getItemsWithLegislatorId: (arg: number) => any;
-  }
-): Result_1_Format[] {
-  const allVoteResults = voteResultsRepository.getAllVoteResults();
-
-  const result_1: Result_1_Format[] = allVoteResults.map(
-    (voteResultItem: VoteResult) => {
-      let num_supported_bills = 0;
-      let num_opposed_bills = 0;
-      const id = voteResultItem.legislator_id; // legislator id
-      const legislator = legislatorRepository.getLegislatorById(
-        voteResultItem.legislator_id
-      );
-
-      const voteInfosCount = voteResultsRepository.getItemsWithLegislatorId(
-        voteResultItem.legislator_id
-      );
-
-      voteInfosCount.map((voteInfo: { vote_type: number }) => {
-        if (voteInfo.vote_type === 1) {
-          num_supported_bills += 1;
-        } else {
-          num_opposed_bills += 1;
-        }
-      });
-
-      const obj = {
-        id,
-        name: legislator?.name || "",
-        num_supported_bills,
-        num_opposed_bills,
-      };
-      return obj;
-    }
-  );
-
-  return result_1;
 }
 
 async function main() {
@@ -149,26 +74,29 @@ async function main() {
       await voteResultsRepository.loadVoteResults("src/files/vote_results.csv"),
     ]);
 
-    const result_1: Result_1_Format[] = legislatorsSupportOpposeCount(
-      legislatorRepository,
-      voteResultsRepository
+    const result_1: Result_1_Format[] =
+      legislatorRepository.calculateSupportOpposeCounts(
+        legislatorRepository,
+        voteResultsRepository
+      );
+    createLegislatorsSupportOpposeCountCsv(
+      "src/files/results/legislators-support-oppose-count.csv",
+      result_1
     );
-    createLegislatorsSupportOpposeCountCsv("src/files/results/legislators-support-oppose-count.csv",result_1)
 
-    const result_2: Result_2_Format[] = billSupporterOpposerCount(
+    const result_2: Result_2_Format[] = billRepository.calculateSupportOpposeCounts(
       voteRepository,
       billRepository,
       legislatorRepository,
       voteResultsRepository
     );
-    createBillsSupportOpposeCountCsv("src/files/results/bills.csv", result_2)
-
+    createBillsSupportOpposeCountCsv("src/files/results/bills.csv", result_2);
   } catch (error) {
     console.error("error loading csv files", error);
   }
-  const end = new Date()
-  const time = end.getMilliseconds() - start.getMilliseconds()
-  console.log(time)
+  const end = new Date();
+  const time = end.getMilliseconds() - start.getMilliseconds();
+  console.log(time);
 }
 
 main();
