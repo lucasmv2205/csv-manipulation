@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "test": "jest --watchAll --config=jest.config.js"
+    "test": "jest --config=jest.config.js"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
