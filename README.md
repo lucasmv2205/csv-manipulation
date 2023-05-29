@@ -2,8 +2,8 @@
 The results files are created in src/files/results, after run the application.
 
 ##
-The answer for each question is a function called "calculateSupportOpposeCounts" in each repository (LegislatorRepository for 1 and BillRepository for 2)
-The fucntions to create the csv files are in index.ts in 2 different functions, createLegislatorsSupportOpposeCountCsv and createBillsSupportOpposeCountCsv
+- The answer for each question is a function called "calculateSupportOpposeCounts" in each repository (LegislatorRepository for 1 and BillRepository for 2)
+- The functions to create the csv files are in index.ts in 2 different functions, createLegislatorsSupportOpposeCountCsv and createBillsSupportOpposeCountCsv
 
 #### Tech
 
