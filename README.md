@@ -1,5 +1,7 @@
 # csv-manipulation
 
+The results files are created in src/files/results, after run the application.
+
 #### Tech
 
 - node
@@ -13,16 +15,17 @@
   OR
 - Docker
 
-## With node.js
-
 Before try to run the application, first install the dependencies.
 You need to have node.js and npm installed on your machine. If not, take a look here: <https://nodejs.org/en>
 
 #### Install dependencies
+First off all, install the dependencies packages
 
 ```bash
 npm install
 ```
+
+## With node.js
 
 #### Run app
 
