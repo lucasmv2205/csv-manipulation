@@ -12,7 +12,6 @@ The results files are created in src/files/results, after run the application.
 #### Requirements to run this app
 
 - node.js 18.x and npm
-  OR
 - Docker
 
 Before try to run the application, first install the dependencies.
